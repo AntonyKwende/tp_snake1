@@ -1,56 +1,53 @@
 """
-v02 : pareil mais au moins on peut sortir du programme
-avec la touche 'q', ou avec la souris en fermant la fenêtre
+v03 : Le damier
+Plateau de 30x30 cases de 20 pixels
 """
 
-from random import randint
 import pygame as pg
 
+# Constantes du plateau
+NB_COLS = 30
+NB_ROWS = 30
+TILE_SIZE = 20
+
+# Dimensions de la fenêtre
+WIDTH = NB_COLS * TILE_SIZE   # 600 px
+HEIGHT = NB_ROWS * TILE_SIZE  # 600 px
+
+# Couleurs du damier (ex. blanc / noir ou deux nuances de vert/gris)
+COLOR_1 = (240, 240, 240)
+COLOR_2 = (200, 200, 200)
+
+def draw_checkerboard(surface):
+    for row in range(NB_ROWS):
+        for col in range(NB_COLS):
+            # Alternance des cases
+            color = COLOR_1 if (row + col) % 2 == 0 else COLOR_2
+            
+            # Position en pixels
+            x = col * TILE_SIZE
+            y = row * TILE_SIZE
+            
+            rect = pg.Rect(x, y, TILE_SIZE, TILE_SIZE)
+            pg.draw.rect(surface, color, rect)
+
 pg.init()
-screen = pg.display.set_mode((400, 300))
+screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 
-# on rajoute une condition à la boucle: si on la passe à False le programme s'arrête
 running = True
 while running:
+    clock.tick(30)
 
-    clock.tick(1)
-
-    # on itère sur tous les évênements qui ont eu lieu depuis le précédent appel
-    # ici donc tous les évènements survenus durant la seconde précédente
     for event in pg.event.get():
-        # chaque évênement à un type qui décrit la nature de l'évênement
-        # un type de pg.QUIT signifie que l'on a cliqué sur la "croix" de la fenêtre
         if event.type == pg.QUIT:
             running = False
-        # un type de pg.KEYDOWN signifie que l'on a appuyé une touche du clavier
         elif event.type == pg.KEYDOWN:
-            # si la touche est "Q" on veut quitter le programme
             if event.key == pg.K_q:
                 running = False
 
-    # xxx ici c'est discutable, car si on tape 'q'
-    # on va quand même changer de couleur avant de sortir...
+    # Affichage du damier
+    draw_checkerboard(screen)
+    pg.display.update()
 
-# une recette pour dessiner un rectangle:
-
-# les coordonnées de rectangle que l'on dessine
-x, y = 100, 200            # les coordonnées du coin du rectangle (en pixels)
-
-# la taille du rectangle
-width, height = 20, 20     # largeur et hauteur du rectangle, toujours en pixels
-
-# on crée un objet 'Rect'
-rect = pg.Rect(x, y, width, height)
-
-# la couleur de remplissage
-color = (255, 0, 0)        # couleur rouge
-
-# et on le dessine comme ceci dans l'écran virtuel
-pg.draw.rect(screen, color, rect)
-pg.display.update()
-
-
-# Enfin on rajoute un appel à pg.quit()
-# Cet appel va permettre à Pygame de "bien s'éteindre" et éviter des bugs sous Windows
 pg.quit()

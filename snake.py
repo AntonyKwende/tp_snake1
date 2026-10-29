@@ -48,6 +48,11 @@ while running:
 
     # Affichage du damier
     draw_checkerboard(screen)
+    snake = [
+    (10, 15),
+    (11, 15),
+    (12, 15),
+]
     pg.display.update()
 
 pg.quit()

@@ -16,7 +16,7 @@ HEIGHT = NB_ROWS * TILE_SIZE  # 600 px
 
 # Couleurs du damier (ex. blanc / noir ou deux nuances de vert/gris)
 COLOR_1 = (240, 240, 240)
-COLOR_2 = (200, 200, 200)
+COLOR_2 = (0, 0, 0)
 
 def draw_checkerboard(surface):
     for row in range(NB_ROWS):

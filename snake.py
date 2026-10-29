@@ -32,9 +32,23 @@ while running:
     # xxx ici c'est discutable, car si on tape 'q'
     # on va quand même changer de couleur avant de sortir...
 
-    random_color = (randint(0, 255), randint(0, 255), randint(0, 255))
-    screen.fill(random_color)
-    pg.display.update()
+# une recette pour dessiner un rectangle:
+
+# les coordonnées de rectangle que l'on dessine
+x, y = 100, 200            # les coordonnées du coin du rectangle (en pixels)
+
+# la taille du rectangle
+width, height = 20, 20     # largeur et hauteur du rectangle, toujours en pixels
+
+# on crée un objet 'Rect'
+rect = pg.Rect(x, y, width, height)
+
+# la couleur de remplissage
+color = (255, 0, 0)        # couleur rouge
+
+# et on le dessine comme ceci dans l'écran virtuel
+pg.draw.rect(screen, color, rect)
+pg.display.update()
 
 
 # Enfin on rajoute un appel à pg.quit()
